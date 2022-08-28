@@ -1,0 +1,56 @@
+2022-08-27_20-02-33: chrombpnet_bias_hyperparams \
+       --genome=data/reference/hg38.genome.fa \
+       --bigwig=data/GM12878.bw \
+       --peaks=data/peaks.bed \
+       --nonpeaks=data/negatives_data/negatives_with_summit.bed \
+       --outlier_threshold=0.99 \
+       --chr_fold_path=data/splits/fold_0.json \
+       --inputlen=2114 \
+       --outputlen=1000 \
+       --max_jitter=0 \
+       --filters=128 \
+       --n_dilation_layers=4 \
+       --bias_threshold_factor=0.5 \
+       --output_dir models/bias_model/
+WARNING: IF upgrading from v1.0 or v1.1 to v1.2, note that chrombpnet has undergone linting to generate a modular structure for release on pypi.Hard-coded script paths are no longer necessary. Please refer to the updated README to ensure your script calls are compatible with v1.2
+evaluating hyperparameters on the following chromosomes ['chr2', 'chr4', 'chr5', 'chr7', 'chr9', 'chr10', 'chr11', 'chr12', 'chr13', 'chr14', 'chr15', 'chr16', 'chr17', 'chr18', 'chr19', 'chr21', 'chr22', 'chrX', 'chrY', 'chr8', 'chr20']
+Number of non peaks input:  430102
+Number of non peaks filtered because the input/output is on the edge:  4344
+Number of non peaks being used:  425758
+Number of non peaks input:  62948
+Number of non peaks filtered because the input/output is on the edge:  0
+Number of non peaks being used:  62948
+Number of peaks input:  215051
+Number of peaks filtered because the input/output is on the edge:  2
+Number of peaks being used:  215049
+peak counts [6680. 5477. 3272. ... 4221. 4706. 6585.]
+nonpeak counts [205. 176. 223. ... 221. 138. 182.]
+0.0
+441.0
+493.0
+531.0
+564.0
+593.0
+621.0
+647.0
+673.0
+700.0
+725.0
+751.0
+776.0
+800.0
+826.0
+851.0
+877.0
+904.0
+930.0
+959.0
+988.0
+1018.0
+1049.0
+1080.0
+0.5
+Upper bound counts cut-off for bias model training:  220.5
+Number of nonpeaks after the upper-bount cut-off:  193070
+Number of nonpeaks after applying upper-bound cut-off and removing outliers :  182756
+counts_loss_weight: 15.1
