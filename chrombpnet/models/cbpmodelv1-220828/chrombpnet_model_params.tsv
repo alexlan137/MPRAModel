@@ -1,0 +1,9 @@
+counts_loss_weight	202.0
+filters	512
+n_dil_layers	8
+bias_model_path	models/chrombpnet_model/bias_model_scaled.h5
+inputlen	2114
+outputlen	1000
+max_jitter	500
+chr_fold_path	data/splits/fold_0.json
+negative_sampling_ratio	0.1

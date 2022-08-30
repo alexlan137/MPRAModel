@@ -1,0 +1,167 @@
+WARNING: If upgrading from v1.0 or v1.1 to v1.2. Note that chrombpnet has undergone linting to generate a modular structure for release on pypi.Hard-coded script paths are no longer necessary. Please refer to the updated README (below) to ensure your script calls are compatible with v1.2
+No logfile supplied - creating one
+2022-08-29_02-45-59: chrombpnet_bias_hyperparams \
+       --genome=data/reference/hg38.genome.fa \
+       --bigwig=data/GM12878v2.bw \
+       --peaks=data/peaks.bed \
+       --nonpeaks=data/negatives_data/negatives_with_summit.bed \
+       --outlier_threshold=0.99 \
+       --chr_fold_path=data/splits/fold_0.json \
+       --inputlen=2114 \
+       --outputlen=1000 \
+       --max_jitter=0 \
+       --filters=128 \
+       --n_dilation_layers=4 \
+       --bias_threshold_factor=0.5 \
+       --output_dir models/bias_model
+WARNING: IF upgrading from v1.0 or v1.1 to v1.2, note that chrombpnet has undergone linting to generate a modular structure for release on pypi.Hard-coded script paths are no longer necessary. Please refer to the updated README to ensure your script calls are compatible with v1.2
+evaluating hyperparameters on the following chromosomes ['chr2', 'chr4', 'chr5', 'chr7', 'chr9', 'chr10', 'chr11', 'chr12', 'chr13', 'chr14', 'chr15', 'chr16', 'chr17', 'chr18', 'chr19', 'chr21', 'chr22', 'chrX', 'chrY', 'chr8', 'chr20']
+Number of non peaks input:  430102
+Number of non peaks filtered because the input/output is on the edge:  0
+Number of non peaks being used:  430102
+Number of non peaks input:  62948
+Number of non peaks filtered because the input/output is on the edge:  0
+Number of non peaks being used:  62948
+Number of peaks input:  215051
+Number of peaks filtered because the input/output is on the edge:  0
+Number of peaks being used:  215051
+peak counts [3092. 2528. 1516. ... 2947.  288.  485.]
+nonpeak counts [ 47.  99.  76. ... 246. 163.  32.]
+206.0
+226.0
+242.0
+256.0
+269.0
+281.0
+292.0
+304.0
+315.0
+327.0
+338.0
+349.0
+361.0
+372.0
+383.0
+394.0
+406.0
+418.0
+430.0
+443.0
+456.0
+470.0
+484.0
+498.0
+0.5
+Upper bound counts cut-off for bias model training:  113.0
+Number of nonpeaks after the upper-bount cut-off:  298051
+Number of nonpeaks after applying upper-bound cut-off and removing outliers :  283025
+counts_loss_weight: 6.3
+"tee -a $logfile" command failed with exit code 0.
+WARNING: If upgrading from v1.0 or v1.1 to v1.2. Note that chrombpnet has undergone linting to generate a modular structure for release on pypi.Hard-coded script paths are no longer necessary. Please refer to the updated README (below) to ensure your script calls are compatible with v1.2
+2022-08-29_03-03-46: chrombpnet_train \
+       --genome=data/reference/hg38.genome.fa \
+       --bigwig=data/GM12878v2.bw \
+       --nonpeaks=models/bias_model/filtered.bias_nonpeaks.bed \
+       --params=models/bias_model/bias_model_params.tsv \
+       --output_prefix=models/bias_model/bias \
+       --chr_fold_path=data/splits/fold_0.json \
+       --seed=1234 \
+       --batch_size=64 \
+       --architecture_from_file=/wynton/home/corces/allan/.conda/envs/MPRAModel/bin/bpnet_model.py \
+       --trackables logcount_predictions_loss loss logits_profile_predictions_loss val_logcount_predictions_loss val_loss val_logits_profile_predictions_loss
+2022-08-29 03:04:04.802968: I tensorflow/core/platform/cpu_feature_guard.cc:151] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2022-08-29 03:04:11.162756: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1525] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 7390 MB memory:  -> device: 0, name: NVIDIA GeForce GTX 1080, pci bus id: 0000:02:00.0, compute capability: 6.1
+2022-08-29 03:04:11.165898: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1525] Created device /job:localhost/replica:0/task:0/device:GPU:1 with 7390 MB memory:  -> device: 1, name: NVIDIA GeForce GTX 1080, pci bus id: 0000:03:00.0, compute capability: 6.1
+2022-08-29 03:04:11.167524: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1525] Created device /job:localhost/replica:0/task:0/device:GPU:2 with 7390 MB memory:  -> device: 2, name: NVIDIA GeForce GTX 1080, pci bus id: 0000:81:00.0, compute capability: 6.1
+2022-08-29 03:04:11.169017: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1525] Created device /job:localhost/replica:0/task:0/device:GPU:3 with 7390 MB memory:  -> device: 3, name: NVIDIA GeForce GTX 1080, pci bus id: 0000:82:00.0, compute capability: 6.1
+WARNING: IF upgrading from v1.0 or v1.1 to v1.2, note that chrombpnet has undergone linting to generate a modular structure for release on pypi.Hard-coded script paths are no longer necessary. Please refer to the updated README to ensure your script calls are compatible with v1.2
+{'counts_loss_weight': '6.3', 'filters': '128', 'n_dil_layers': '4', 'inputlen': '2114', 'outputlen': '1000', 'max_jitter': '0', 'chr_fold_path': 'data/splits/fold_0.json', 'negative_sampling_ratio': '1.0'}
+params:
+filters:128
+n_dil_layers:4
+conv1_kernel_size:21
+profile_kernel_size:75
+counts_loss_weight:6.3
+got the model
+loading nonpeaks...
+got split:train for bed regions:(257413, 10)
+loading nonpeaks...
+got split:valid for bed regions:(25612, 10)
+Epoch 1/50
+2022-08-29 03:13:55.595068: I tensorflow/stream_executor/cuda/cuda_dnn.cc:368] Loaded cuDNN version 8201
+2022-08-29 03:14:01.121824: W tensorflow/stream_executor/gpu/asm_compiler.cc:111] *** WARNING *** You are using ptxas 11.0.221, which is older than 11.1. ptxas before 11.1 is known to miscompile XLA code, leading to incorrect results or invalid-address errors.
+
+You may not need to update to CUDA 11.1; cherry-picking the ptxas binary is often sufficient.
+2022-08-29 03:14:03.090669: E tensorflow/stream_executor/cuda/cuda_blas.cc:232] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2022-08-29 03:14:03.091181: E tensorflow/stream_executor/cuda/cuda_blas.cc:234] Failure to initialize cublas may be due to OOM (cublas needs some free memory when you initialize it, and your deep-learning framework may have preallocated more than its fair share), or may be because this binary was not built with support for the GPU in your machine.
+   1/4023 [..............................] - ETA: 22:58:33 - loss: 349.9405 - logits_profile_predictions_loss: 240.5911 - logcount_predictions_loss: 17.35702022-08-29 03:14:11.086939: W tensorflow/core/framework/op_kernel.cc:1745] OP_REQUIRES failed at matmul_op_impl.h:442 : INTERNAL: CUBLAS_STATUS_EXECUTION_FAILED
+Traceback (most recent call last):
+  File "/wynton/home/corces/allan/.conda/envs/MPRAModel/bin/chrombpnet_train", line 33, in <module>
+    sys.exit(load_entry_point('chrombpnet', 'console_scripts', 'chrombpnet_train')())
+  File "/wynton/home/corces/allan/MPRAModel/chrombpnet/chrombpnet/training/train.py", line 93, in main
+    fit_and_evaluate(model, train_generator, valid_generator, args, architecture_module)
+  File "/wynton/home/corces/allan/MPRAModel/chrombpnet/chrombpnet/training/train.py", line 39, in fit_and_evaluate
+    model.fit(train_gen,
+  File "/wynton/home/corces/allan/.conda/envs/MPRAModel/lib/python3.8/site-packages/keras/utils/traceback_utils.py", line 67, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "/wynton/home/corces/allan/.conda/envs/MPRAModel/lib/python3.8/site-packages/tensorflow/python/eager/execute.py", line 54, in quick_execute
+    tensors = pywrap_tfe.TFE_Py_Execute(ctx._handle, device_name, op_name,
+tensorflow.python.framework.errors_impl.InternalError: Graph execution error:
+
+Detected at node 'gradient_tape/model/logcount_predictions/MatMul/MatMul' defined at (most recent call last):
+    File "/wynton/home/corces/allan/.conda/envs/MPRAModel/bin/chrombpnet_train", line 33, in <module>
+      sys.exit(load_entry_point('chrombpnet', 'console_scripts', 'chrombpnet_train')())
+    File "/wynton/home/corces/allan/MPRAModel/chrombpnet/chrombpnet/training/train.py", line 93, in main
+      fit_and_evaluate(model, train_generator, valid_generator, args, architecture_module)
+    File "/wynton/home/corces/allan/MPRAModel/chrombpnet/chrombpnet/training/train.py", line 39, in fit_and_evaluate
+      model.fit(train_gen,
+    File "/wynton/home/corces/allan/.conda/envs/MPRAModel/lib/python3.8/site-packages/keras/utils/traceback_utils.py", line 64, in error_handler
+      return fn(*args, **kwargs)
+    File "/wynton/home/corces/allan/.conda/envs/MPRAModel/lib/python3.8/site-packages/keras/engine/training.py", line 1384, in fit
+      tmp_logs = self.train_function(iterator)
+    File "/wynton/home/corces/allan/.conda/envs/MPRAModel/lib/python3.8/site-packages/keras/engine/training.py", line 1021, in train_function
+      return step_function(self, iterator)
+    File "/wynton/home/corces/allan/.conda/envs/MPRAModel/lib/python3.8/site-packages/keras/engine/training.py", line 1010, in step_function
+      outputs = model.distribute_strategy.run(run_step, args=(data,))
+    File "/wynton/home/corces/allan/.conda/envs/MPRAModel/lib/python3.8/site-packages/keras/engine/training.py", line 1000, in run_step
+      outputs = model.train_step(data)
+    File "/wynton/home/corces/allan/.conda/envs/MPRAModel/lib/python3.8/site-packages/keras/engine/training.py", line 863, in train_step
+      self.optimizer.minimize(loss, self.trainable_variables, tape=tape)
+    File "/wynton/home/corces/allan/.conda/envs/MPRAModel/lib/python3.8/site-packages/keras/optimizer_v2/optimizer_v2.py", line 530, in minimize
+      grads_and_vars = self._compute_gradients(
+    File "/wynton/home/corces/allan/.conda/envs/MPRAModel/lib/python3.8/site-packages/keras/optimizer_v2/optimizer_v2.py", line 583, in _compute_gradients
+      grads_and_vars = self._get_gradients(tape, loss, var_list, grad_loss)
+    File "/wynton/home/corces/allan/.conda/envs/MPRAModel/lib/python3.8/site-packages/keras/optimizer_v2/optimizer_v2.py", line 464, in _get_gradients
+      grads = tape.gradient(loss, var_list, grad_loss)
+Node: 'gradient_tape/model/logcount_predictions/MatMul/MatMul'
+CUBLAS_STATUS_EXECUTION_FAILED
+	 [[{{node gradient_tape/model/logcount_predictions/MatMul/MatMul}}]] [Op:__inference_train_function_1947]
+2022-08-29 03:14:14.959278: W tensorflow/core/kernels/data/generator_dataset_op.cc:107] Error occurred when finalizing GeneratorDataset iterator: FAILED_PRECONDITION: Python interpreter state is not initialized. The process may be terminated.
+	 [[{{node PyFunc}}]]
+"tee -a $logfile" command failed with exit code 1.
+WARNING: If upgrading from v1.0 or v1.1 to v1.2. Note that chrombpnet has undergone linting to generate a modular structure for release on pypi.Hard-coded script paths are no longer necessary. Please refer to the updated README (below) to ensure your script calls are compatible with v1.2
+2022-08-29_03-14-18: chrombpnet_predict \
+        --genome=data/reference/hg38.genome.fa \	 
+        --bigwig=data/GM12878v2.bw \  
+        --nonpeaks=models/bias_model/filtered.bias_nonpeaks.bed \
+        --chr_fold_path=data/splits/fold_0.json \
+        --inputlen=2114 \
+        --outputlen=1000 \
+        --output_prefix=models/bias_model/bias \
+        --batch_size=256 \
+        --model_h5=models/bias_model/bias.h5
+WARNING: IF upgrading from v1.0 or v1.1 to v1.2, note that chrombpnet has undergone linting to generate a modular structure for release on pypi.Hard-coded script paths are no longer necessary. Please refer to the updated README to ensure your script calls are compatible with v1.2
+Traceback (most recent call last):
+  File "/wynton/home/corces/allan/.conda/envs/MPRAModel/bin/chrombpnet_predict", line 33, in <module>
+    sys.exit(load_entry_point('chrombpnet', 'console_scripts', 'chrombpnet_predict')())
+  File "/wynton/home/corces/allan/MPRAModel/chrombpnet/chrombpnet/training/predict.py", line 104, in main
+    model=load_model_wrapper(args)
+  File "/wynton/home/corces/allan/MPRAModel/chrombpnet/chrombpnet/training/predict.py", line 58, in load_model_wrapper
+    model=load_model(args.model_h5)
+  File "/wynton/home/corces/allan/.conda/envs/MPRAModel/lib/python3.8/site-packages/keras/utils/traceback_utils.py", line 67, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "/wynton/home/corces/allan/.conda/envs/MPRAModel/lib/python3.8/site-packages/keras/saving/save.py", line 204, in load_model
+    raise IOError(f'No file or directory found at {filepath_str}')
+OSError: No file or directory found at models/bias_model/bias.h5
+"tee -a $logfile" command failed with exit code 1.

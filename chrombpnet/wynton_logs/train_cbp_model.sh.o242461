@@ -1,0 +1,18 @@
+mkdir: cannot create directory '/tmp/lock-gpu1': File exists
+WARNING: If upgrading from v1.0 or v1.1 to v1.2. Note that chrombpnet has undergone linting to generate a modular structure for release on pypi.Hard-coded script paths are no longer necessary. Please refer to the updated README (below) to ensure your script calls are compatible with v1.2
+No logfile supplied - creating one
+2022-08-29_21-00-51: chrombpnet_hyperparams \
+       --genome=data/reference/hg38.genome.fa \
+       --bigwig=data/GM12878v2.bw \
+       --peaks=data/peaks.bed \
+       --nonpeaks=data/negatives_data/negatives_with_summit.bed \
+       --outlier_threshold=0.99 \
+       --chr_fold_path=data/splits/fold_0.json \
+       --negative_sampling_ratio=0.1 \
+       --inputlen=2114 \
+       --outputlen=1000 \
+       --max_jitter=500 \
+       --filters=512 \
+       --n_dilation_layers=8 \
+       --bias_model_path=models/bias_model/bias.h5 \
+       --output_dir=models/chrombpnet_model 

@@ -1,0 +1,8 @@
+counts_loss_weight	6.3
+filters	128
+n_dil_layers	4
+inputlen	2114
+outputlen	1000
+max_jitter	0
+chr_fold_path	data/splits/fold_0.json
+negative_sampling_ratio	1.0
