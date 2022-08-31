@@ -1,0 +1,23 @@
+{
+    "genome": "data/reference/hg38.genome.fa",
+    "bigwig": "data/GM12878.bw",
+    "peaks": "models/chrombpnet_model//filtered.peaks.bed",
+    "nonpeaks": "models/chrombpnet_model//filtered.nonpeaks.bed",
+    "output_prefix": "models/chrombpnet_model//chrombpnet",
+    "chr_fold_path": "data/splits/fold_0.json",
+    "trackables": [
+        "logcount_predictions_loss",
+        "loss",
+        "logits_profile_predictions_loss",
+        "val_logcount_predictions_loss",
+        "val_loss",
+        "val_logits_profile_predictions_loss"
+    ],
+    "epochs": 50,
+    "early_stop": 5,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "params": "models/chrombpnet_model//chrombpnet_model_params.tsv",
+    "seed": 1234,
+    "architecture_from_file": "/wynton/home/corces/allan/.conda/envs/MPRAModel/bin/chrombpnet_with_bias_model.py"
+}

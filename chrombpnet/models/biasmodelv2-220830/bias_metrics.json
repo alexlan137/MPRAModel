@@ -1,0 +1,15 @@
+{
+    "counts_metrics": {
+        "nonpeaks": {
+            "spearmanr": 0.4368771413312595,
+            "pearsonr": 0.6330891422514555,
+            "mse": 0.6993849972354034
+        }
+    },
+    "profile_metrics": {
+        "nonpeaks": {
+            "median_jsd": 0.6114608171491578,
+            "median_norm_jsd": 0.815913095920236
+        }
+    }
+}
