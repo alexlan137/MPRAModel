@@ -24,8 +24,8 @@ def train_mpra():
     print("yshape:", y.shape)
     XR_train, XR_test, XA_train, XA_test, y_train, y_test = train_test_split(XR, XA, y, train_size=0.9)
     print(XR_train.shape, XR_test.shape, XA_train.shape, XA_test.shape, y_train.shape, y_test.shape)
-    checkpointer = tfcallbacks.ModelCheckpoint(filepath="MPRAModelv1-220903", monitor="val_loss", mode="min",  verbose=1, save_best_only=True)
-    earlystopper = tfcallbacks.EarlyStopping(monitor='val_loss', mode="min", patience=5, verbose=1, restore_best_weights=True)
+    checkpointer = tfcallbacks.ModelCheckpoint(filepath="MPRAModelv1-220903", monitor="val_loss", mode="min", verbose=1, save_best_only=True)
+    earlystopper = tfcallbacks.EarlyStopping(monitor='val_loss', mode="min", patience=5, verbose=1, min_delta=0.001, restore_best_weights=True)
     cur_callbacks=[checkpointer, earlystopper]
     print(TNN.get_config())
     print("LR:", lr)
