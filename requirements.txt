@@ -1,0 +1,17 @@
+h5py
+matplotlib
+matplotlib-venn
+numpy
+pandas
+pyfaidx
+scikit-learn
+scipy
+tensorflow-gpu==2.4.1
+tensorflow-estimator
+tensorflow-probability
+tqdm
+pyBigWig
+deepdish
+git+https://github.com/AvantiShri/shap.git
+deeplift
+modisco
