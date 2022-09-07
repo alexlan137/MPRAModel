@@ -20,14 +20,14 @@ def load(filepath):
     output_df['d2alt'] = (filtered_df['cDNA2_alt'] + bias) / (filtered_df['plasmid2_alt'] + bias)
     output_df['d3alt'] = (filtered_df['cDNA3_alt'] + bias) / (filtered_df['plasmid3_alt'] + bias)
     output_df['dalt'] = ((output_df['d1alt'] + output_df['d2alt'] + output_df['d3alt'])/3)
-    output_df['delta'] = np.log2(output_df['dalt'] / output_df['dref']) # alt / ref such that a positive delta is a increase in signal 
+    output_df['delta'] = np.log2(output_df['dref']/output_df['dalt'])
     print(output_df.head())
 
     train_df = output_df[['chrom', 'pos', 'ref', 'alt', 'delta']]
     print(train_df.head())
 
-    output_df.to_csv('data/MPRA/processed-abell-filtered.csv')
-    train_df.to_csv('data/MPRA/train-abell-filtered.csv')
+    output_df.to_csv('data/MPRA/processed-abell-filtered-lfc.csv')
+    train_df.to_csv('data/MPRA/train-abell-filtered-lfc.csv')
 
 
 if ('__main__'):

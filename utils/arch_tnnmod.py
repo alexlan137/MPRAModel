@@ -17,38 +17,29 @@ from merge import merge
 
 def loadCBP(filepath):
     ChromBPNet = load(filepath)
-    ChromBPNet.trainable = False
     return ChromBPNet
 
-def setupTNN(chrombpnetfile, lr):
+def setupTNN_M(chrombpnetfile, lr):
     inpSeq = Input(shape = (2114, 4))
     ChromBPNet = loadCBP(chrombpnetfile)
-    X = ChromBPNet([inpSeq], training=False)
+    X = ChromBPNet([inpSeq])
     X = Lambda(merge)(X)
     CORE = keras.Model(inputs=[inpSeq], outputs=[X])
     CORE.compile(optimizer=keras.optimizers.Adam())
-    print("———CORE MODEL ARCHITECTURE———")
-    print(CORE.summary())
 
     AlleleR = Input(shape=(2114, 4))
     AlleleA = Input(shape=(2114, 4))
 
-    EncodedR = CORE(inputs=[AlleleR], training=False)
-    EncodedA = CORE(inputs=[AlleleA], training=False)
+    EncodedR = CORE(inputs=[AlleleR])
+    EncodedA = CORE(inputs=[AlleleA])
 
-    L1_layer = Lambda(lambda tensors:keras.backend.abs(tensors[0]-tensors[1]))
-    L1_distance = L1_layer([EncodedR, EncodedA])
-    L1_distance = tf.expand_dims(L1_distance, axis=-1)
+    LFC = Lambda(lambda tensors:keras.backend.log(tensors[0]/tensors[1]))
+    LFCoutput = LFC([EncodedR, EncodedA])
 
-    # merged = Conv1D(filters=64, kernel_size=20, activation='sigmoid')(L1_distance)
-    dense1 = Dense(512, activation='relu')(L1_distance)
-    dense2 = Dense(128, activation='relu')(dense1)
-    dense3 = Dense(32, activation='relu')(dense2)
+    dense1 = Dense(256, activation='relu')(LFCoutput)
+    dense2 = Dense(64, activation='relu')(dense1)
+    dense3 = Dense(16, activation='relu')(dense2)
     prediction = Dense(1, activation='sigmoid')(dense3)
     TNN = keras.Model(inputs=[AlleleR, AlleleA], outputs=[prediction])
     TNN.compile(optimizer=Adam(learning_rate=lr), loss='mse')
     return TNN
-
-if __name__ == '__main__':
-    TNN = setupTNN('models/chrombpnet.h5', 0.01)
-    print(TNN.summary())

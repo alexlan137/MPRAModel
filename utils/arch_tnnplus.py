@@ -20,10 +20,10 @@ def loadCBP(filepath):
     ChromBPNet.trainable = False
     return ChromBPNet
 
-def setupTNN(chrombpnetfile, lr):
+def setupTNN_P(chrombpnetfile, lr):
     inpSeq = Input(shape = (2114, 4))
     ChromBPNet = loadCBP(chrombpnetfile)
-    X = ChromBPNet([inpSeq], training=False)
+    X = ChromBPNet([inpSeq]) #training=False
     X = Lambda(merge)(X)
     CORE = keras.Model(inputs=[inpSeq], outputs=[X])
     CORE.compile(optimizer=keras.optimizers.Adam())
@@ -36,9 +36,9 @@ def setupTNN(chrombpnetfile, lr):
     EncodedR = CORE(inputs=[AlleleR], training=False)
     EncodedA = CORE(inputs=[AlleleA], training=False)
 
-    L1_layer = Lambda(lambda tensors:keras.backend.abs(tensors[0]-tensors[1]))
+    L1_layer = Lambda(lambda tensors:keras.backend.abs(tensors[0] / tensors[1]))
     L1_distance = L1_layer([EncodedR, EncodedA])
-    L1_distance = tf.expand_dims(L1_distance, axis=-1)
+    # L1_distance = tf.expand_dims(L1_distance, axis=-1)
 
     # merged = Conv1D(filters=64, kernel_size=20, activation='sigmoid')(L1_distance)
     dense1 = Dense(512, activation='relu')(L1_distance)
