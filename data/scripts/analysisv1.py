@@ -2,12 +2,12 @@ from matplotlib import pyplot as plt
 import numpy as np
 import pandas as pd
 
-data_df = pd.read_csv('data/MPRA/train-AbellV2DESeq.csv')
+data_df = pd.read_csv('data/MPRA/train-abell-filtered-lfc.csv')
 scores = np.array(data_df['delta'])
-# y_train = np.load('data/training/y_train.npy')
-y_test = np.load('data/eval/delta.001.npy')
-CBPpreds = np.load('metrics/pval/pval0.001.npy')
-CBPpreds = np.reshape(CBPpreds, 455)
+y_train = np.load('data/training/y_train.npy')
+y_test = np.load('data/training/y_test.npy')
+CBPpreds = np.load('metrics/CBPv1v2testing/cbpv1preds.npy')
+CBPpreds = np.reshape(CBPpreds, 4204)
 CBPpreds = np.sort(CBPpreds)
 # TNNpreds = np.load('metrics/TNNpreds.npy')
 # sortedTNN = np.reshape(TNNpreds, 4204)
@@ -22,4 +22,4 @@ ax.hist(y_test, bins=500, color='coral') #coral
 ax.hist(CBPpreds, bins=500, color='black')
 # ax.hist(TNNpreds, bins=500, color='red')
 
-plt.savefig('metrics/pval/pval.001.png')
+plt.savefig('metrics/CBPv1v2testing/cbppredsv1.png')

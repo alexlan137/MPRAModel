@@ -18,7 +18,7 @@ from load_data import load_data
 
 def train_mpra():
     lr = 0.00001
-    TNN = setupTNN_M('models/chrombpnet.h5', lr)
+    TNN = setupTNN_M('models/chrombpnet_wo_bias.h5', lr)
     print(TNN.summary())
     XR_train = np.load('data/training/XR_train.npy')
     XR_test = np.load('data/training/XR_test.npy')
