@@ -61,8 +61,8 @@ def load_data_kampman(filepath):
     for idx, row in peaks_df.iterrows():
         seq1 = PLASMID_UPSTREAM + row['seq'] + PLASMID_DOWNSTREAM
         seq2 = PLASMID_UPSTREAM + row['seq2'] + PLASMID_DOWNSTREAM
-        seqref.append(seq1)
-        seqalt.append(seq2)
+        seqalt.append(seq1)
+        seqref.append(seq2)
     
     Xref = one_hot_encode(seqref, 2114)
     Xalt = one_hot_encode(seqalt, 2114)
