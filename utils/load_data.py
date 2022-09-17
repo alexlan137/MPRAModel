@@ -45,5 +45,32 @@ def load_data(filepath):
     scores = np.array(score_df['delta'])
     return XR, XA, seqR, seqA, scores
 
+def load_data_kampman(filepath):
+    PLASMID_ORIG_U = "agaatgaacaagaattattggaattagataaatgggcaagtttgtggaattggtttaacataacaaattggctgtggtatataaaattattcataatgatagtaggaggcttggtaggtttaagaatagtttttgctgtactttctatagtgaatagagttaggcagggatattcaccattatcgtttcagacccacctcccaaccccgaggggacccgacaggcccgaaggaatagaagaagaaggtggagagagagacagagacagatccattcgattagtgaacggatcggcactgcgtgcgccaattctgcagacaaatggcagtattcatccacaattttaaaagaaaaggggggattggggggtacagtgcaggggaaagaatagtagacataatagcaacagacatacaaactaaagaattacaaaaacaaattacaaaaattcaaaattttcgggtttattacagggacagcagagatccagtttggttagtaccgggcccggtgctttgctctgagccagcccaccagtttggaatgactcctttttatgacttgaattttcaagtataaagtctagtgctaaatttaatttgaacaactgtatagtttttgctggttgggggaaggaaaaaaaatggtggcagtgtttttttcagaattagaagtgaaatgaaaacttgttgtgtgtgaggatttctaatgacatgtggtggttgcatactgagtgaagccggtgagcattctgccatgtcaccccctcgtgctcagtaatgtactttacagaaatcctaaactcaaaagattgatataaaccatgcttcttgtgtatatccggtctcttctctgggtagtctcactcagcctgcatttctgccagggcccgctctagacctgcagg"
+    PLASMID_UPSTREAM = PLASMID_ORIG_U.upper()
+
+    PLASMID_ORIG_D = "CACTAGAGGGTATATAATGGAAGCTCGACTTCCAGCTTGGCAATCCGGTACTGTGCAAAGTGAACACATCGCTAAGCGAAAGCTAAGNNNNNNNNNNNNNNNAccggtcgccaccatggtgagcaagggcgaggagctgttcaccggggtggtgcccatcctggtcgagctggacggcgacgtaaacggccacaagttcagcgtgtccggcgagggcgagggcgatgccacctacggcaagctgaccctgaagttcatctgcaccaccggcaagctgcccgtgccctggcccaccctcgtgaccaccctgacctacggcgtgcagtgcttcagccgctaccccgaccacatgaagcagcacgacttcttcaagtccgccatgcccgaaggctacgtccaggagcgcaccatcttcttcaaggacgacggcaactacaagacccgcgccgaggtgaagttcgagggcgacaccctggtgaaccgcatcgagctgaagggcatcgacttcaaggaggacggcaacatcctggggcacaagctggagtacaactacaacagccacaacgtctatatcatggccgacaagcagaagaacggcatcaaggtgaacttcaagatccgccacaacatcgaggacggcagcgtgcagctcgccgaccactaccagcagaacacccccatcggcgacggccccgtgctgctgcccgacaaccactacctgagcacccagtccgccctgagcaaagaccccaacgagaagcgcgatcacatggtcctgctggagttcgtgaccgccgccgggatcactctcggcatggacgagctgtacaagtaggaattcgtcgagggacctaataacttcgtatagcatacattatacgaagttatacatgtttaagggttccgg"
+    PLASMID_DOWNSTREAM = PLASMID_ORIG_D.upper()
+
+    data_df = pd.read_csv(filepath)
+    peaks_df = data_df[['seq', 'seq2']]
+    
+    seqref = []
+    seqalt = []
+    
+    for idx, row in peaks_df.iterrows():
+        seq1 = PLASMID_UPSTREAM + row['seq'] + PLASMID_DOWNSTREAM
+        seq2 = PLASMID_UPSTREAM + row['seq2'] + PLASMID_DOWNSTREAM
+        seqref.append(seq1)
+        seqalt.append(seq2)
+    
+    Xref = one_hot_encode(seqref, 2114)
+    Xalt = one_hot_encode(seqalt, 2114)
+    
+    score_df = data_df[['delta']]
+    scores = np.array(score_df['delta'])
+
+    return np.array(Xref), np.array(Xalt), np.array(seqref), np.array(seqalt), scores
+
 # if ('__main__'):
 #     load_data('data/MPRA/train-abell-filtered.csv')

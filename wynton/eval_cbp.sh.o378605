@@ -1,0 +1,2 @@
+The TensorFlow library was compiled to use AVX instructions, but these aren't available on your machine.
+/var/spool/sge/wynton/qb3-ih56/job_scripts/378605: line 9: 26830 Aborted                 (core dumped) python3 utils/eval_cbpv1.py

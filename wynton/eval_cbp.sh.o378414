@@ -1,0 +1,116 @@
+2022-09-11 21:26:47.906822: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /wynton/home/corces/allan/.conda/envs/MPRAModel/lib
+2022-09-11 21:26:47.913051: W tensorflow/stream_executor/cuda/cuda_driver.cc:269] failed call to cuInit: UNKNOWN ERROR (303)
+2022-09-11 21:26:47.913860: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (qb3-id300): /proc/driver/nvidia/version does not exist
+2022-09-11 21:26:47.916905: I tensorflow/core/platform/cpu_feature_guard.cc:151] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Model: "model"
+__________________________________________________________________________________________________
+ Layer (type)                   Output Shape         Param #     Connected to                     
+==================================================================================================
+ sequence (InputLayer)          [(None, 2114, 4)]    0           []                               
+                                                                                                  
+ model_wo_bias (Functional)     [(None, 1000),       6377986     ['sequence[0][0]']               
+                                 (None, 1)]                                                       
+                                                                                                  
+ model (Functional)             [(None, 1000),       217730      ['sequence[0][0]']               
+                                 (None, 1)]                                                       
+                                                                                                  
+ concatenate (Concatenate)      (None, 2)            0           ['model_wo_bias[0][1]',          
+                                                                  'model[0][1]']                  
+                                                                                                  
+ logits_profile_predictions (Ad  (None, 1000)        0           ['model_wo_bias[0][0]',          
+ d)                                                               'model[0][0]']                  
+                                                                                                  
+ logcount_predictions (Lambda)  (None, 1)            0           ['concatenate[0][0]']            
+                                                                                                  
+==================================================================================================
+Total params: 6,595,716
+Trainable params: 6,377,986
+Non-trainable params: 217,730
+__________________________________________________________________________________________________
+None
+Model: "model_1"
+__________________________________________________________________________________________________
+ Layer (type)                   Output Shape         Param #     Connected to                     
+==================================================================================================
+ input_1 (InputLayer)           [(None, 2114, 4)]    0           []                               
+                                                                                                  
+ model (Functional)             [(None, 1000),       6377986     ['input_1[0][0]']                
+                                 (None, 1)]                                                       
+                                                                                                  
+ input_3 (InputLayer)           [(None, 1)]          0           []                               
+                                                                                                  
+ input_2 (InputLayer)           [(None, 1000)]       0           []                               
+                                                                                                  
+ concatenate (Concatenate)      (None, 2)            0           ['model[0][1]',                  
+                                                                  'input_3[0][0]']                
+                                                                                                  
+ logits_w_bias (Add)            (None, 1000)         0           ['model[0][0]',                  
+                                                                  'input_2[0][0]']                
+                                                                                                  
+ logcounts_w_bias (Lambda)      (None, 1)            0           ['concatenate[0][0]']            
+                                                                                                  
+==================================================================================================
+Total params: 6,377,986
+Trainable params: 6,377,986
+Non-trainable params: 0
+__________________________________________________________________________________________________
+None
+CBP loaded from file
+Model: "model_1"
+__________________________________________________________________________________________________
+ Layer (type)                   Output Shape         Param #     Connected to                     
+==================================================================================================
+ input_1 (InputLayer)           [(None, 2114, 4)]    0           []                               
+                                                                                                  
+ model (Functional)             [(None, 1000),       6377986     ['input_1[0][0]']                
+                                 (None, 1)]                                                       
+                                                                                                  
+ input_3 (InputLayer)           [(None, 1)]          0           []                               
+                                                                                                  
+ input_2 (InputLayer)           [(None, 1000)]       0           []                               
+                                                                                                  
+ concatenate (Concatenate)      (None, 2)            0           ['model[0][1]',                  
+                                                                  'input_3[0][0]']                
+                                                                                                  
+ logits_w_bias (Add)            (None, 1000)         0           ['model[0][0]',                  
+                                                                  'input_2[0][0]']                
+                                                                                                  
+ logcounts_w_bias (Lambda)      (None, 1)            0           ['concatenate[0][0]']            
+                                                                                                  
+==================================================================================================
+Total params: 6,377,986
+Trainable params: 6,377,986
+Non-trainable params: 0
+__________________________________________________________________________________________________
+/wynton/home/corces/allan/.conda/envs/MPRAModel/lib/python3.8/site-packages/keras/layers/core/lambda_layer.py:303: UserWarning:  is not loaded, but a Lambda layer uses it. It may cause errors.
+  function = cls._parse_function_from_config(config, custom_objects,
+/wynton/home/corces/allan/.conda/envs/MPRAModel/lib/python3.8/site-packages/keras/layers/core/lambda_layer.py:303: UserWarning: archs is not loaded, but a Lambda layer uses it. It may cause errors.
+  function = cls._parse_function_from_config(config, custom_objects,
+None
+Traceback (most recent call last):
+  File "utils/eval_cbpv1.py", line 61, in <module>
+    eval_mpra()
+  File "utils/eval_cbpv1.py", line 30, in eval_mpra
+    CBPpredsR = CBP.predict([XR_test, np.zeros((len(XR_test), 2114)), np.zeros(len(XR_test))], verbose=True)[:][1] #1
+  File "/wynton/home/corces/allan/.conda/envs/MPRAModel/lib/python3.8/site-packages/keras/utils/traceback_utils.py", line 67, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "/wynton/home/corces/allan/.conda/envs/MPRAModel/lib/python3.8/site-packages/tensorflow/python/framework/func_graph.py", line 1147, in autograph_handler
+    raise e.ag_error_metadata.to_exception(e)
+ValueError: in user code:
+
+    File "/wynton/home/corces/allan/.conda/envs/MPRAModel/lib/python3.8/site-packages/keras/engine/training.py", line 1801, in predict_function  *
+        return step_function(self, iterator)
+    File "/wynton/home/corces/allan/.conda/envs/MPRAModel/lib/python3.8/site-packages/keras/engine/training.py", line 1790, in step_function  **
+        outputs = model.distribute_strategy.run(run_step, args=(data,))
+    File "/wynton/home/corces/allan/.conda/envs/MPRAModel/lib/python3.8/site-packages/keras/engine/training.py", line 1783, in run_step  **
+        outputs = model.predict_step(data)
+    File "/wynton/home/corces/allan/.conda/envs/MPRAModel/lib/python3.8/site-packages/keras/engine/training.py", line 1751, in predict_step
+        return self(x, training=False)
+    File "/wynton/home/corces/allan/.conda/envs/MPRAModel/lib/python3.8/site-packages/keras/utils/traceback_utils.py", line 67, in error_handler
+        raise e.with_traceback(filtered_tb) from None
+    File "/wynton/home/corces/allan/.conda/envs/MPRAModel/lib/python3.8/site-packages/keras/engine/input_spec.py", line 264, in assert_input_compatibility
+        raise ValueError(f'Input {input_index} of layer "{layer_name}" is '
+
+    ValueError: Input 1 of layer "model_1" is incompatible with the layer: expected shape=(None, 1000), found shape=(None, 2114)
+

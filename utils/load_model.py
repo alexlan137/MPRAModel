@@ -14,5 +14,5 @@ def load(filepath):
     print(model_chrombpnet.summary())
     return model_chrombpnet
 
-if ('__main__'):
-    load('models/chrombpnet.h5')
+# if ('__main__'):
+#     load('models/chrombpnet.h5')
