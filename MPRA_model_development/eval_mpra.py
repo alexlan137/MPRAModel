@@ -21,17 +21,17 @@ from load_data import load_data
 def flatten(l):
     return [item for sublist in l for item in sublist]
 
-def eval_mpra():
-    TNN = tf.keras.models.load_model('MPRA_model_development/models/MPRAModel.Kampman.mAL.t1000.p0.3.c300.220925.v5')
+def eval_mpra(mpramodelid, datadir, dataid, version):
+    TNN = tf.keras.models.load_model('MPRA_model_development/models/MPRAModel.' + mpramodelid + '.v' + version)
     print("TNN loaded from file")
     print(TNN.summary())
 
-    XR_train = np.load('data/MPRA_partitioned/Kampman/XRKampman.mAL.t1000.p0.3.c300.npy')
-    XA_train = np.load('data/MPRA_partitioned/Kampman/XAKampman.mAL.t1000.p0.3.c300.npy')
-    y_train = np.load('data/MPRA_partitioned/Kampman/deltaKampman.mAL.t1000.p0.3.c300.npy')
+    XR_train = np.load(datadir + '/XR_test' + dataid + '.npy')
+    XA_train = np.load(datadir + '/XA_test' + dataid + '.npy')
+    y_train = np.load(datadir + '/delta_test' + dataid + '.npy')
 
     TNNpreds = TNN.predict([XR_train, XA_train], batch_size=16, verbose=True)
-    np.save('MPRA_model_development/models/MPRAModel.Kampman.mAL.t1000.p0.3.c300.220925.v4/preds.v5', np.array(TNNpreds))
+    np.save('MPRA_model_development/models/MPRAModel.' + mpramodelid + '.v' + version + '/preds', np.array(TNNpreds))
     TNNpreds = flatten(TNNpreds)
     print(TNNpreds)
     print(y_train)
@@ -48,5 +48,10 @@ def eval_mpra():
     print("spearman TNN:", spearmanTNN)
     print("pearson TNN:", pearsonTNN)
 
-if ('__main__'):
-    eval_mpra()
+    with open('MPRA_model_development/models/MPRAModel.' + mpramodelid + '.v' + version + '/metrics.txt', 'w') as f:
+        f.write('spearman TNN: ')
+        f.write(str(spearmanTNN))
+        f.write('\n')
+        f.write('pearson TNN: ')
+        f.write(str(pearsonTNN))
+        f.write('\n')

@@ -13,13 +13,13 @@ MODEL_K562 = '/wynton/home/corces/allan/MPRAModel/models/Soumya_K562/chrombpnet_
 
 # PARAMETERS
 DATASET = 'Kampman'
-PLASMID_THRESHOLD = 1000
-CDNA_THRESHOLD = 1000
-PVAL = 0.3
+PLASMID_THRESHOLD = 100
+CDNA_THRESHOLD = 100
+PVAL = 0.5
 LFC_CROP = 300
 CUR_MODEL = "AL"
 MODEL_LOC = MODEL_AL
-# TRAIN_TEST_SPLIT = 0.8
+TRAIN_TEST_SPLIT = 0.1 # test_size
 
 
 MPRA_DIR = '/wynton/home/corces/allan/MPRAModel/data/MPRA/' + DATASET + '/'
@@ -41,7 +41,7 @@ from step5_correlation import graph_corr
 
 if (DATASET == 'Kampman'):
     loadKampman(MPRA_CSV, PVAL, PLASMID_THRESHOLD, ID, MPRA_LOADED_DIR)
-    partition_data_kampman(ID, MPRA_LOADED_DIR, MPRA_PARTITION_DIR)
+    partition_data_kampman(ID, MPRA_LOADED_DIR, MPRA_PARTITION_DIR, TRAIN_TEST_SPLIT)
 
 if (DATASET == 'Abell'):
     loadAbell(MPRA_CSV, PVAL, PLASMID_THRESHOLD, CDNA_THRESHOLD, ID, MPRA_LOADED_DIR)
