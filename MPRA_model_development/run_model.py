@@ -9,8 +9,8 @@ os.chdir('/wynton/home/corces/allan/MPRAModel')
 sys.path.append('/wynton/home/corces/allan/MPRAModel/utils')
 sys.path.append('/wynton/home/corces/allan/MPRAModel/MPRA_model_development')
 
-from train_mpra import train_mpra
-from eval_mpra import eval_mpra
+from step1_train_mpra import train_mpra
+from step2_eval_mpra import eval_mpra
 
 def run():
     # Three model directories: 'GM12878', 'Soumya_GM12878', 'Soumya_K562'
@@ -20,25 +20,25 @@ def run():
     dataid = 'Kampman.mAL.t100.p0.5.c300'
     version = '1'
     lr = 0.0002
-    train_mpra(cbpdir, datadir, dataid, mpramodelid, version, lr)
+    # train_mpra(cbpdir, datadir, dataid, mpramodelid, version, lr)
     
-    with open('MPRA_model_development/models/MPRAModel.' + mpramodelid + '.v' + version + '/params.txt', 'w') as f:
-        f.write('model: ')
-        f.write(cbpdir)
-        f.write('\n')
-        f.write('dataset: ')
-        f.write(datadir)
-        f.write('\n')
-        f.write('modelID: ')
-        f.write(mpramodelid)
-        f.write('\n')
-        f.write('version: ')
-        f.write(version)
-        f.write('\n')
-        f.write('learning rate: ')
-        f.write(str(lr))
-        f.write('\n')
-        f.write('\n')
+    # with open('MPRA_model_development/models/MPRAModel.' + mpramodelid + '.v' + version + '/params.txt', 'w') as f:
+    #     f.write('model: ')
+    #     f.write(cbpdir)
+    #     f.write('\n')
+    #     f.write('dataset: ')
+    #     f.write(datadir)
+    #     f.write('\n')
+    #     f.write('modelID: ')
+    #     f.write(mpramodelid)
+    #     f.write('\n')
+    #     f.write('version: ')
+    #     f.write(version)
+    #     f.write('\n')
+    #     f.write('learning rate: ')
+    #     f.write(str(lr))
+    #     f.write('\n')
+    #     f.write('\n')
     eval_mpra(mpramodelid, datadir, dataid, version)
 
 if('__main__'):
