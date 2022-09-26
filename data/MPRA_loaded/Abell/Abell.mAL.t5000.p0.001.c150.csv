@@ -1,0 +1,3 @@
+,chrom,pos,ref,alt,plasmid1_ref,plasmid2_ref,plasmid3_ref,plasmid1_alt,plasmid2_alt,plasmid3_alt,delta
+27223,chr9,37492679,G,T,1781,1491,1822,1681,2181,1930,0.981965438
+27494,chr5,96288138,A,G,2252,3492,2310,2090,2156,1677,0.894764388

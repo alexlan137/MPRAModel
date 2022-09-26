@@ -1,0 +1,15 @@
+{
+    "chrombpnet_cts_pearson_peaks_nonpeaks": 0.8413374333036195,
+    "chrombpnet_cts_spearman_peaks_nonpeaks": 0.8209604202416336,
+    "binary_auc": 0.9642944525906624,
+    "chrombpnet_cts_pearson_peaks": 0.7789604534700426,
+    "chrombpnet_cts_spearman_peaks": 0.7838543949864802,
+    "chrombpnet_cts_pearson_peaks_wo_bias": 0.7707133976166002,
+    "chrombpnet_cts_spearman_peaks_wo_bias": 0.7812326924855673,
+    "bias_cts_pearson_peaks": 0.5966551931943591,
+    "bias_cts_spearman_peaks": 0.6025450250361765,
+    "chrombpnet_profile_median_jsd_peaks": 0.3172035210272171,
+    "chrombpnet_profile_median_jsd_peaks_wo_bias": 0.5584005893724371,
+    "bias_profile_median_jsd_peaks": 0.38849400366107756,
+    "chrombpnet_profile_median_jsd_peaks_randomized": 0.6720889716548835
+}
