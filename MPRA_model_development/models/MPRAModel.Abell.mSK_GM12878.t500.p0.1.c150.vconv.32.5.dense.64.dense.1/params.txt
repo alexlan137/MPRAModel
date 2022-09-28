@@ -1,0 +1,6 @@
+model: Soumya_GM12878
+dataset: data/MPRA_partitioned/Abell
+modelID: Abell.mSK_GM12878.t500.p0.1.c150
+version: conv.32.5.dense.64.dense.1
+learning rate: 0.0002
+

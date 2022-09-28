@@ -1,0 +1,6 @@
+model: GM12878
+dataset: data/MPRA_partitioned/Abell
+modelID: Abell.mAL.t500.p0.1.c150
+version: 2
+learning rate: 0.0001
+

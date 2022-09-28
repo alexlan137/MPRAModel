@@ -1,0 +1,6 @@
+model: Soumya_K562
+dataset: data/MPRA_partitioned/Kampman
+modelID: Kampman.mSK_K562.t1000.p1.c300
+version: 2
+learning rate: 0.0002
+
