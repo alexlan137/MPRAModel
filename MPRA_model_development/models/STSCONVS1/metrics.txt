@@ -1,0 +1,6 @@
+spearman TNN-all: 0.5712554317547569
+pearson TNN-all: 0.605810296535891
+spearman TNN-train: 0.554305767409379
+pearson TNN-train: 0.6359278898884864
+spearman TNN-test: 0.5767344731091621
+pearson TNN-test: 0.46958993462689685
