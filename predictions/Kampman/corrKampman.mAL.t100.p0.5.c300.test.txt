@@ -1,0 +1,4 @@
+Kampman.mAL.t100.p0.5.c300
+spearman CBP: 0.29705882352941176
+pearson CBP: 0.4749048613136553
+

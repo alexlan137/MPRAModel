@@ -13,12 +13,14 @@ os.chdir('/wynton/home/corces/allan/MPRAModel')
 sys.path.append('/wynton/home/corces/allan/MPRAModel/utils')
 sys.path.append('/wynton/home/corces/allan/MPRAModel/MPRA_model_development/archs')
 
-from arch_tnnbasic import setupTNN
+# from arch_tnnbasic import setupTNN
+from arch_tnnqtl import setupTNN
+from arch_tnnmod import setupTNNmod
 from load_data import load_data
 
 def train_mpra(cbpdir, datadir, dataid, mpramodelid, versionid, lr):
     print("here")
-    TNN = setupTNN('models/' + cbpdir + '/chrombpnet_wo_bias.h5', lr)
+    TNN = setupTNNmod('models/' + cbpdir + '/chrombpnet_wo_bias.h5', lr) #MODIFY
     print(TNN.summary())
     XR_train = np.load(datadir + '/XR_train' + dataid + '.npy')
     XA_train = np.load(datadir + '/XA_train' + dataid + '.npy')
@@ -30,5 +32,5 @@ def train_mpra(cbpdir, datadir, dataid, mpramodelid, versionid, lr):
     earlystopper = tfcallbacks.EarlyStopping(monitor='val_loss', mode="min", patience=5, verbose=1, min_delta=0.0005, restore_best_weights=True)
     cur_callbacks=[checkpointer, earlystopper]
     print("LR:", lr)
-    TNN.fit([XR_train, XA_train], y_train, batch_size=16, epochs=100, validation_split=0.2, callbacks=cur_callbacks)
+    TNN.fit([XR_train, XA_train], y_train, batch_size=16, epochs=40, validation_split=0.2, callbacks=cur_callbacks)
     TNN.save('MPRA_model_development/models/MPRAModel.' + mpramodelid + '.v' + versionid + '.h5')
