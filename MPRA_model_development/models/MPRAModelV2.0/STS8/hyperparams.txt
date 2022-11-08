@@ -1,0 +1,10 @@
+type: 1
+cell type: K562
+numconv: 1
+kernelconv: 8
+filterconv: 16
+numdense: 1
+filterdense: 64
+crop: 0
+lr: 1e-05
+dataid: Kampman.mSK_K562.t100.p0.7.c300
