@@ -1,0 +1,12 @@
+type: 1
+cell type: K562
+numconv: 3
+kernelconv: 7
+filterconv: 16
+numdense: 3
+filterdense: 32
+crop: 0
+lr: 5e-05
+cbpfile: models/Soumya_K562/chrombpnet_wo_bias.h5
+datadir: data/MPRA_partitioned/Kampman
+dataid: Kampman.mSK_K562.t0.p0.6.c300
